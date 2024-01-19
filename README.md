@@ -132,3 +132,14 @@ Your task is to implement the API call to populate the cards with data from the 
 - It works on mobile and desktop
 - The dark mode toggle works as expected
 - Code quality best practices
+
+
+# Plagiarism declaration
+
+By submitting this assignment you adhere to the following statements:
+
+I know that plagiarism is wrong. Plagiarism is to use another’s work and pretend that it is one’s own.
+
+- This assignment is my own work.
+- I have not allowed, and will not allow, anyone to copy my work with the intention of passing it off as his or her own work.
+- I acknowledge that copying someone else’s assignment (or part of it) is wrong and declare that my assignments are my own work.
