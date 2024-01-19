@@ -108,6 +108,7 @@ Create a card on the dashboard underneath the 4 statistics cards with the follow
 - A category selector
 - The user should see a table with a list of the products in the currently selected category
   - The table should have the "Id, Name, Revenue, Cost" columns. The revenue and cost should be formatted as USD
+- The table should be sortable by either cost (ascending or descending) or revenue (ascending or descending). By default it should sort by revenue (descending).
 - Underneath the table there should be a total revenue field which should show the total revenue for the selected category
 - Additionally there should be a "total profit" field which shows the total profit (revenue - cost) for the selected category
 
