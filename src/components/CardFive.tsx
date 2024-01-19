@@ -81,18 +81,36 @@ const categories: Categories[] = [
   },
 ];
 import React, { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
-export function CardFive(props: any) {
+export function CardFive() {
   const [category, setCategory] = useState<Categories["id"]>(1);
   const [categoryData, setCategoryData] = useState<APIData[]>([]);
   const [sortDesc, setSortDesc] = useState<boolean>(false);
+  const [sortType, setSortType] = useState<"cost" | "revenue">("revenue");
   useEffect(() => {
+    if (!category) return;
+    console.count("useEffect");
     const filteredData = data.filter((item) => {
       return item.categoryId === category;
     });
-    console.log(filteredData);
+    filteredData.sort((a, b) => {
+      if (sortType === "cost") {
+        if (sortDesc) {
+          return b.cost - a.cost;
+        } else {
+          return a.cost - b.cost;
+        }
+      } else {
+        if (sortDesc) {
+          return b.salesRevenue - a.salesRevenue;
+        } else {
+          return a.salesRevenue - b.salesRevenue;
+        }
+      }
+    });
     setCategoryData(filteredData);
-  }, [category]);
+  }, [category, sortDesc, sortType]);
   return (
     <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
       <span className="flex items-center space-x-2">
@@ -127,6 +145,33 @@ export function CardFive(props: any) {
               {category.name}
             </option>
           ))}
+        </select>
+        <select
+          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+            if (
+              event.target.value === "cost" ||
+              event.target.value === "revenue"
+            ) {
+              setSortType(event.target.value);
+            } else {
+              toast.error("Invalid sort type");
+            }
+          }}
+          defaultValue={"revenue"}
+          className="border border-stroke rounded-sm px-2 py-1.5 bg-white dark:bg-boxdark dark:border-strokedark"
+        >
+          <option value="cost">Cost</option>
+          <option value="revenue">Revenue</option>
+        </select>
+        <select
+          onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+            setSortDesc(event.target.value === "descending" ? true : false)
+          }
+          defaultValue={"descending"}
+          className="border border-stroke rounded-sm px-2 py-1.5 bg-white dark:bg-boxdark dark:border-strokedark"
+        >
+          <option value="descending">Descending</option>
+          <option value="ascending">Ascending</option>
         </select>
       </span>
       <table className="w-full mt-4">
