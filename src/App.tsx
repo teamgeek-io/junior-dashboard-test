@@ -1,12 +1,14 @@
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-
+import { Query, QueryClient,QueryClientProvider,useQuery } from 'react-query';
 import ECommerce from './pages/Dashboard/ECommerce';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
 import Loader from './common/Loader';
 import routes from './routes';
+
+const queryClient = new QueryClient();
 
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
 
@@ -21,6 +23,7 @@ function App() {
     <Loader />
   ) : (
     <>
+    <QueryClientProvider client={queryClient}>
       <Toaster
         position="top-right"
         reverseOrder={false}
@@ -47,6 +50,7 @@ function App() {
           })}
         </Route>
       </Routes>
+      </QueryClientProvider>
     </>
   );
 }
