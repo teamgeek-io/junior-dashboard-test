@@ -90,7 +90,6 @@ export function CardFive() {
   const [sortType, setSortType] = useState<"cost" | "revenue">("revenue");
   useEffect(() => {
     if (!category) return;
-    console.count("useEffect");
     const filteredData = data.filter((item) => {
       return item.categoryId === category;
     });
