@@ -1,29 +1,47 @@
-import { categories } from "../../common/constants/index.tsx";
-
-type SelectCategoryProps = {
-  onCategoryChange: (categoryId: number) => void;
+type Option = {
+  name: string;
+  value: string;
 };
 
-const SelectCategory = ({ onCategoryChange }: SelectCategoryProps) => {
+const options: Option[] = [
+  {
+    name: "Cost (asc)",
+    value: "cost-asc",
+  },
+  {
+    name: "Cost (desc)",
+    value: "cost-desc",
+  },
+  {
+    name: "Revenue (asc)",
+    value: "revenue-asc",
+  },
+  {
+    name: "Revenue (desc)",
+    value: "revenue-desc",
+  },
+];
+
+const SortBySelect = () => {
   return (
     <div>
-      <div className="flex flex-col gap-5.5 p-6.5">
+      <div className="flex flex-col gap-5 px-6.5">
         <div>
-          <label className="mb-3 block text-black dark:text-white">
-            Select Category
+          <label className="mb-2 block text-sm text-black dark:text-white">
+            Sort By
           </label>
           <div className="relative z-20 bg-white dark:bg-form-input">
             <select
-              className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
-              onChange={(event) => onCategoryChange(Number(event.target.value))}
+              className="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark"
+              // onChange={(event) => onCategoryChange(Number(event.target.value))}
             >
-              {categories.map((category, index) => (
-                <option key={index} value={category.id}>
-                  {category.name}
+              {options.map((option, index) => (
+                <option key={index} value={option.value}>
+                  {option.name}
                 </option>
               ))}
             </select>
-            <span className="absolute z-10 right-3 top-4">
+            <span className="absolute z-10 right-3 top-2.5">
               <svg
                 width="24"
                 height="24"
@@ -48,4 +66,4 @@ const SelectCategory = ({ onCategoryChange }: SelectCategoryProps) => {
   );
 };
 
-export default SelectCategory;
+export default SortBySelect;
