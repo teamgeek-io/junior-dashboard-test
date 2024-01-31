@@ -1,4 +1,5 @@
 import { FunctionComponent, useState } from "react";
+import { productsList } from "../../common/constants";
 import SelectCategory from "./SelectCategory";
 
 type ProductRow = {
@@ -6,6 +7,7 @@ type ProductRow = {
   name: string;
   revenue: number;
   cost: number;
+  categoryId?: number;
 };
 
 const ProductRow: FunctionComponent<ProductRow> = ({
@@ -65,7 +67,17 @@ const TopProductsCard = ({ products }: TopProductsCardProps) => {
         </div>
       </div>
 
-      <ProductRow id={1} name="Product1" cost={12} revenue={24} />
+      {productsList
+        ?.filter((product) => product.categoryId === selectedCategory)
+        .map((product, index) => (
+          <ProductRow
+            key={index}
+            id={product.id}
+            name={product.name}
+            revenue={product.salesRevenue}
+            cost={product.cost}
+          />
+        ))}
     </div>
   );
 };

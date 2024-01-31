@@ -30,7 +30,7 @@ export type product = {
   catergoryId: number;
 };
 
-export const products = [
+export const productsList = [
   {
     id: 1,
     name: "Nike air force ones",

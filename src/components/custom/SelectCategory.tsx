@@ -17,8 +17,10 @@ const SelectCategory = ({ onCategoryChange }: SelectCategoryProps) => {
               className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
               onChange={(event) => onCategoryChange(Number(event.target.value))}
             >
-              {categories.map((category) => (
-                <option value={category.id}>{category.name}</option>
+              {categories.map((category, index) => (
+                <option key={index} value={category.id}>
+                  {category.name}
+                </option>
               ))}
             </select>
             <span className="absolute z-10 right-3 top-4">
