@@ -1,7 +1,5 @@
-import { FunctionComponent, useEffect, useMemo, useState } from "react";
+import { FunctionComponent, useMemo, useState } from "react";
 import { categories, productsList } from "../common/constants";
-
-// Language codes can be found here: https://www.w3schools.com/tags/ref_language_codes.asp
 
 type Option = {
   name: string;
@@ -48,14 +46,14 @@ const ProductRow: FunctionComponent<ProductRow> = ({
   locale,
 }) => {
   return (
-    <div className="grid grid-cols-4 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-      <div className="col-span-1 flex items-center">
+    <div className="grid grid-cols-4 border-t border-stroke last:border-b py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
+      <div className="flex col-span-1 items-center">
         <p className="text-sm text-black dark:text-white">{id}</p>
       </div>
-      <div className="col-span-3 hidden items-center sm:flex">
+      <div className="hidden col-span-3 items-center sm:flex">
         <p className="text-sm text-black dark:text-white">{name}</p>
       </div>
-      <div className="col-span-2 flex items-center">
+      <div className="flex items-center col-span-2">
         <p className="text-sm text-black dark:text-white">
           {revenue.toLocaleString(locale, {
             style: "currency",
@@ -63,7 +61,7 @@ const ProductRow: FunctionComponent<ProductRow> = ({
           })}
         </p>
       </div>
-      <div className="col-span-2 flex items-center">
+      <div className="flex items-center col-span-2">
         <p className="text-sm text-black dark:text-white">
           {cost.toLocaleString(locale, {
             style: "currency",
@@ -80,6 +78,10 @@ type TopProductsCardProps = {
 };
 
 const TopProductsCard = ({ products }: TopProductsCardProps) => {
+  // Language codes for locale can be found here: https://www.w3schools.com/tags/ref_language_codes.asp
+  const locale = "en-US";
+  const currency = "USD";
+
   const [selectedCategory, setSelectedCategory] = useState<number>(1);
   const [activeButton, setActiveButton] = useState<number | null>(0);
   const [selectedSortBy, setSelectedSortBy] = useState(options[0].value);
@@ -119,18 +121,31 @@ const TopProductsCard = ({ products }: TopProductsCardProps) => {
     return sortedProducts;
   };
 
-  useEffect(() => {
-    const sortedProducts = sortProducts(productsList, selectedSortBy);
-  }, [selectedSortBy]);
-
   // useMemo ensures that sortedProducts is recomputed when selectedSortBy changes
   const sortedProducts = useMemo(
     () => sortProducts(productsList, selectedSortBy),
     [productsList, selectedSortBy]
   );
 
+  // Total Revenue for category
+  const totalRevenue = useMemo(() => {
+    return sortedProducts
+      ?.filter((product) => product.categoryId === selectedCategory)
+      .reduce((total, product) => total + parseFloat(product.salesRevenue), 0);
+  }, [sortedProducts, selectedCategory]);
+
+  // Total Profit for category
+  const totalProfit = useMemo(() => {
+    return sortedProducts
+      ?.filter((product) => product.categoryId === selectedCategory)
+      .reduce(
+        (total, product) => total + (product.salesRevenue - product.cost),
+        0
+      );
+  }, [sortedProducts, selectedCategory]);
+
   return (
-    <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark pb-2.5">
+    <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="flex py-6 px-4 md:px-6 xl:px-7.5 items-start justify-between">
         <h4 className="text-xl font-semibold text-black dark:text-white">
           Top Products
@@ -192,17 +207,17 @@ const TopProductsCard = ({ products }: TopProductsCardProps) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-        <div className="col-span-1 flex items-center">
+      <div className="grid auto-cols-max grid-cols-4 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
+        <div className="flex col-span-1 items-center">
           <p className="font-medium">Id</p>
         </div>
-        <div className="col-span-3 flex items-center">
+        <div className="flex col-span-3 items-center">
           <p className="font-medium">Name</p>
         </div>
-        <div className="col-span-2 flex items-center">
+        <div className="flex col-span-2 items-center">
           <p className="font-medium">Revenue</p>
         </div>
-        <div className="col-span-2 flex items-center">
+        <div className="flex col-span-2 items-center">
           <p className="font-medium">Cost</p>
         </div>
       </div>
@@ -216,10 +231,30 @@ const TopProductsCard = ({ products }: TopProductsCardProps) => {
             name={product.name}
             revenue={product.salesRevenue}
             cost={product.cost}
-            currency={"USD"}
-            locale="en-US"
+            currency={currency}
+            locale={locale}
           />
         ))}
+      <div className="flex-col items-end justify-end border-t border-stroke py-4.5 px-4 dark:border-strokedark md:px-6 2xl:px-7.5">
+        <div className="flex items-center justify-end gap-10 mb-1">
+          <p className="font-medium">Total Revenue:</p>
+          <p className="font-bold">
+            {totalRevenue.toLocaleString(locale, {
+              style: "currency",
+              currency: currency,
+            })}
+          </p>
+        </div>
+        <div className="flex items-center justify-end gap-10">
+          <p className="font-medium">Total Profit:</p>
+          <p className="font-bold">
+            {totalProfit.toLocaleString(locale, {
+              style: "currency",
+              currency: currency,
+            })}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
