@@ -46,7 +46,7 @@ const ProductRow: FunctionComponent<ProductRow> = ({
   locale,
 }) => {
   return (
-    <div className="grid grid-cols-4 border-t border-stroke last:border-b py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
+    <div className="grid grid-cols-4 border-t border-stroke last:border-b py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5 place-items-center">
       <div className="flex col-span-1 items-center">
         <p className="text-sm text-black dark:text-white">{id}</p>
       </div>
@@ -55,7 +55,7 @@ const ProductRow: FunctionComponent<ProductRow> = ({
       </div>
       <div className="flex items-center col-span-2">
         <p className="text-sm text-black dark:text-white">
-          {revenue.toLocaleString(locale, {
+          {cost.toLocaleString(locale, {
             style: "currency",
             currency: currency,
           })}
@@ -63,7 +63,7 @@ const ProductRow: FunctionComponent<ProductRow> = ({
       </div>
       <div className="flex items-center col-span-2">
         <p className="text-sm text-black dark:text-white">
-          {cost.toLocaleString(locale, {
+          {revenue.toLocaleString(locale, {
             style: "currency",
             currency: currency,
           })}
@@ -207,7 +207,7 @@ const TopProductsCard = ({ products }: TopProductsCardProps) => {
         </div>
       </div>
 
-      <div className="grid auto-cols-max grid-cols-4 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
+      <div className="grid grid-cols-8 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5 place-items-center">
         <div className="flex col-span-1 items-center">
           <p className="font-medium">Id</p>
         </div>
@@ -215,10 +215,10 @@ const TopProductsCard = ({ products }: TopProductsCardProps) => {
           <p className="font-medium">Name</p>
         </div>
         <div className="flex col-span-2 items-center">
-          <p className="font-medium">Revenue</p>
+          <p className="font-medium">Cost</p>
         </div>
         <div className="flex col-span-2 items-center">
-          <p className="font-medium">Cost</p>
+          <p className="font-medium">Revenue</p>
         </div>
       </div>
 
@@ -235,9 +235,9 @@ const TopProductsCard = ({ products }: TopProductsCardProps) => {
             locale={locale}
           />
         ))}
-      <div className="flex-col items-end justify-end border-t border-stroke py-4.5 px-4 dark:border-strokedark md:px-6 2xl:px-7.5">
-        <div className="flex items-center justify-end gap-10 mb-1">
-          <p className="font-medium">Total Revenue:</p>
+      <div className="flex-col border-t border-stroke py-5 px-4 dark:border-strokedark md:px-6 2xl:px-7.5">
+        <div className="flex items-center justify-end gap-10 mb-1 mr-10">
+          <p className="font-medium">Total Category Revenue:</p>
           <p className="font-bold">
             {totalRevenue.toLocaleString(locale, {
               style: "currency",
@@ -245,8 +245,8 @@ const TopProductsCard = ({ products }: TopProductsCardProps) => {
             })}
           </p>
         </div>
-        <div className="flex items-center justify-end gap-10">
-          <p className="font-medium">Total Profit:</p>
+        <div className="flex items-center justify-end gap-10 mr-10">
+          <p className="font-medium">Total Category Profit:</p>
           <p className="font-bold">
             {totalProfit.toLocaleString(locale, {
               style: "currency",
