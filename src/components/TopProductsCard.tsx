@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { categories, productsList } from "../common/constants";
 
 // Language codes can be found here: https://www.w3schools.com/tags/ref_language_codes.asp
@@ -7,6 +7,8 @@ type Option = {
   name: string;
   value: string;
 };
+
+type SortType = "revenue-desc" | "revenue-asc" | "cost-asc" | "cost-desc";
 
 const options: Option[] = [
   {
@@ -80,7 +82,52 @@ type TopProductsCardProps = {
 const TopProductsCard = ({ products }: TopProductsCardProps) => {
   const [selectedCategory, setSelectedCategory] = useState<number>(1);
   const [activeButton, setActiveButton] = useState<number | null>(0);
-  const [sortBy, setSortBy] = useState<string>("revenue-desc");
+  const [selectedSortBy, setSelectedSortBy] = useState(options[0].value);
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedSortBy(e.target.value);
+  };
+
+  const sortProducts = (productsList: any, sortBy: string) => {
+    let sortedProducts;
+
+    if (!Array.isArray(productsList)) {
+      sortedProducts = [];
+    } else {
+      switch (sortBy) {
+        case "revenue-desc":
+          sortedProducts = [...productsList].sort(
+            (a, b) => b.salesRevenue - a.salesRevenue
+          );
+          break;
+        case "revenue-asc":
+          sortedProducts = [...productsList].sort(
+            (a, b) => a.salesRevenue - b.salesRevenue
+          );
+          break;
+        case "cost-asc":
+          sortedProducts = [...productsList].sort((a, b) => a.cost - b.cost);
+          break;
+        case "cost-desc":
+          sortedProducts = [...productsList].sort((a, b) => b.cost - a.cost);
+          break;
+        default:
+          sortedProducts = [...productsList];
+      }
+    }
+
+    return sortedProducts;
+  };
+
+  useEffect(() => {
+    const sortedProducts = sortProducts(productsList, selectedSortBy);
+  }, [selectedSortBy]);
+
+  // useMemo ensures that sortedProducts is recomputed when selectedSortBy changes
+  const sortedProducts = useMemo(
+    () => sortProducts(productsList, selectedSortBy),
+    [productsList, selectedSortBy]
+  );
 
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark pb-2.5">
@@ -111,16 +158,12 @@ const TopProductsCard = ({ products }: TopProductsCardProps) => {
           </div>
           <div className="relative z-20 inline-block">
             <select
-              name="#"
-              id="#"
               className="relative z-20 inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none"
+              value={selectedSortBy}
+              onChange={handleChange}
             >
               {options.map((option, index) => (
-                <option
-                  key={index}
-                  value={option.value}
-                  onChange={() => setSortBy(option.value)}
-                >
+                <option key={index} value={option.value}>
                   {option.name}
                 </option>
               ))}
@@ -164,9 +207,8 @@ const TopProductsCard = ({ products }: TopProductsCardProps) => {
         </div>
       </div>
 
-      {productsList
+      {sortedProducts
         ?.filter((product) => product.categoryId === selectedCategory)
-        .sort()
         .map((product, index) => (
           <ProductRow
             key={index}
@@ -183,10 +225,3 @@ const TopProductsCard = ({ products }: TopProductsCardProps) => {
 };
 
 export default TopProductsCard;
-
-// Revenue desc : .sort((a, b) => b.salesRevenue - a.salesRevenue)
-// Revenue asc : .sort((a, b) => a.salesRevenue - b.salesRevenue)
-// Cost asc : .sort((a, b) => a.cost - b.cost)
-// Cost desc : .sort((a, b) => b.cost - a.cost)
-
-//
