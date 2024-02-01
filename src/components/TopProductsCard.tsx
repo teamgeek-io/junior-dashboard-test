@@ -46,14 +46,14 @@ const ProductRow: FunctionComponent<ProductRow> = ({
   locale,
 }) => {
   return (
-    <div className="grid grid-cols-4 border-t border-stroke last:border-b py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5 place-items-center">
-      <div className="flex col-span-1 items-center">
+    <div className="grid grid-cols-5 md:grid-cols-4 border-t border-stroke last:border-b py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5 md:place-items-center gap-5">
+      <div className="hidden sm:flex col-span-1 items-center">
         <p className="text-sm text-black dark:text-white">{id}</p>
       </div>
-      <div className="hidden col-span-3 items-center sm:flex">
+      <div className="md:col-span-3 col-span-3 items-center flex">
         <p className="text-sm text-black dark:text-white">{name}</p>
       </div>
-      <div className="flex items-center col-span-2">
+      <div className="items-center col-span-2 hidden sm:flex">
         <p className="text-sm text-black dark:text-white">
           {cost.toLocaleString(locale, {
             style: "currency",
@@ -146,12 +146,12 @@ const TopProductsCard = ({ products }: TopProductsCardProps) => {
 
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-      <div className="flex py-6 px-4 md:px-6 xl:px-7.5 items-start justify-between">
-        <h4 className="text-xl font-semibold text-black dark:text-white">
+      <div className="flex-col sm:flex py-6 px-7.5 md:py-6 lg:px-4 md:px-6 xl:px-7.5 items-start justify-between">
+        <h4 className="text-xl font-semibold text-black dark:text-white mb-4">
           Top Products
         </h4>
-        <div className="flex items-center gap-4">
-          <div className="flex w-full justify-end">
+        <div className="flex flex-wrap items-center justify-center gap-6 md:gap-4">
+          <div className="flex w-full justify-center md:justify-end">
             <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
               {categories.map((category, index) => (
                 <button
@@ -205,14 +205,14 @@ const TopProductsCard = ({ products }: TopProductsCardProps) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-8 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5 place-items-center">
-        <div className="flex col-span-1 items-center">
+      <div className="grid grid-cols-5 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5 md:place-items-center gap-5">
+        <div className="hidden sm:flex col-span-1 items-center">
           <p className="font-medium">Id</p>
         </div>
-        <div className="flex col-span-3 items-center">
+        <div className="flex md:col-span-3 col-span-3 items-center">
           <p className="font-medium">Name</p>
         </div>
-        <div className="flex col-span-2 items-center">
+        <div className="hidden sm:flex col-span-2 items-center">
           <p className="font-medium">Cost</p>
         </div>
         <div className="flex col-span-2 items-center">
@@ -233,8 +233,8 @@ const TopProductsCard = ({ products }: TopProductsCardProps) => {
             locale={locale}
           />
         ))}
-      <div className="flex-col border-t border-stroke py-5 px-4 dark:border-strokedark md:px-6 2xl:px-7.5">
-        <div className="flex items-center justify-end gap-10 mb-1 mr-10">
+      <div className="flex-col border-t justify-center items-center border-stroke py-10 md:py-5 md:px-4 dark:border-strokedark md:px-6 2xl:px-7.5">
+        <div className="flex items-center justify-center gap-12 md:gap-10 mb-1 md:mr-10">
           <p className="font-medium">Total Category Revenue:</p>
           <p className="font-bold">
             {totalRevenue.toLocaleString(locale, {
@@ -243,7 +243,7 @@ const TopProductsCard = ({ products }: TopProductsCardProps) => {
             })}
           </p>
         </div>
-        <div className="flex items-center justify-end gap-10 mr-10">
+        <div className="flex items-center justify-center gap-16 md:gap-10 md:mr-10">
           <p className="font-medium">Total Category Profit:</p>
           <p className="font-bold">
             {totalProfit.toLocaleString(locale, {
