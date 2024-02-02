@@ -6,6 +6,16 @@ type Option = {
   value: string;
 };
 
+type ProductRow = {
+  id: number;
+  name: string;
+  revenue: number;
+  cost: number;
+  categoryId?: number;
+  currency: string;
+  locale: string;
+};
+
 const options: Option[] = [
   {
     name: "Revenue (desc)",
@@ -25,15 +35,14 @@ const options: Option[] = [
   },
 ];
 
-type ProductRow = {
-  id: number;
-  name: string;
-  revenue: number;
-  cost: number;
-  categoryId?: number;
-  currency: string;
-  locale: string;
-};
+// Styles
+const gridClasses =
+  "grid grid-cols-5 border-t border-stroke dark:border-strokedark sm:grid-cols-8 2xl:px-7.5 md:place-items-center gap-5 py-6 px-7.5 lg:px-4 md:px-6 xl:px-7.5";
+const idClasses = "hidden sm:flex col-span-1 items-center";
+const nameClasses = "flex md:col-span-3 col-span-3 items-center";
+const gridItemTextClasses = "text-sm text-black dark:text-white";
+const costClasses = "hidden sm:flex items-center col-span-2";
+const revenueClasses = "flex col-span-2 items-center";
 
 const ProductRow: FunctionComponent<ProductRow> = ({
   id,
@@ -44,23 +53,23 @@ const ProductRow: FunctionComponent<ProductRow> = ({
   locale,
 }) => {
   return (
-    <div className="grid grid-cols-5 border-t last:border-b border-stroke  dark:border-strokedark sm:grid-cols-8 2xl:px-7.5 md:place-items-center gap-5 py-6 px-7.5 lg:px-4 md:px-6 xl:px-7.5">
-      <div className="hidden sm:flex col-span-1 items-center">
-        <p className="text-sm text-black dark:text-white">{id}</p>
+    <div className={gridClasses}>
+      <div className={idClasses}>
+        <p className={gridItemTextClasses}>{id}</p>
       </div>
-      <div className="md:col-span-3 col-span-3 items-center flex">
-        <p className="text-sm text-black dark:text-white">{name}</p>
+      <div className={nameClasses}>
+        <p className={gridItemTextClasses}>{name}</p>
       </div>
-      <div className="items-center col-span-2 hidden sm:flex">
-        <p className="text-sm text-black dark:text-white">
+      <div className={costClasses}>
+        <p className={gridItemTextClasses}>
           {cost.toLocaleString(locale, {
             style: "currency",
             currency: currency,
           })}
         </p>
       </div>
-      <div className="flex items-center col-span-2">
-        <p className="text-sm text-black dark:text-white">
+      <div className={revenueClasses}>
+        <p className={gridItemTextClasses}>
           {revenue.toLocaleString(locale, {
             style: "currency",
             currency: currency,
@@ -72,6 +81,10 @@ const ProductRow: FunctionComponent<ProductRow> = ({
 };
 
 const TopProductsCard = () => {
+  // Styles
+  const totalGridClasses = "col-span-3 sm:col-span-6 md:col-span-10";
+  const totalAmountClasses = "sm:justify-self-end 2xl:justify-self-center";
+
   // Language codes for locale can be found here: https://www.w3schools.com/tags/ref_language_codes.asp
   const locale = "en-US";
   const currency = "USD";
@@ -199,17 +212,17 @@ const TopProductsCard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-5 border-t border-stroke dark:border-strokedark sm:grid-cols-8 2xl:px-7.5 md:place-items-center gap-5 py-6 px-7.5 lg:px-4 md:px-6 xl:px-7.5">
-        <div className="hidden sm:flex col-span-1 items-center">
+      <div className={gridClasses}>
+        <div className={idClasses}>
           <p className="font-medium">Id</p>
         </div>
-        <div className="flex md:col-span-3 col-span-3 items-center">
+        <div className={nameClasses}>
           <p className="font-medium">Name</p>
         </div>
-        <div className="hidden sm:flex col-span-2 items-center">
+        <div className={costClasses}>
           <p className="font-medium">Cost</p>
         </div>
-        <div className="flex col-span-2 items-center">
+        <div className={revenueClasses}>
           <p className="font-medium">Revenue</p>
         </div>
       </div>
@@ -228,11 +241,11 @@ const TopProductsCard = () => {
           />
         ))}
       <div className="flex sm:justify-end border-t border-stroke dark:border-strokedark px-2 pt-4 sm:pt-6 pb-8">
-        <div className="grid grid-cols-5 sm:grid-cols-8 lg:py-5 xl:px-2 2xl:px-12 gap-5 sm:place-items-center md:grid-cols-12">
-          <div className="col-span-3 sm:col-span-6 md:col-span-10">
+        <div className="grid grid-cols-5 ml-5 sm:ml-0 sm:grid-cols-8 lg:py-5 xl:px-2 2xl:px-12 sm:gap-5 sm:place-items-center md:grid-cols-12">
+          <div className={totalGridClasses}>
             <p className="font-medium">Total Category Revenue:</p>
           </div>
-          <div className="sm:justify-self-end 2xl:justify-self-center">
+          <div className={totalAmountClasses}>
             <p className="font-bold">
               {totalRevenue.toLocaleString(locale, {
                 style: "currency",
@@ -240,10 +253,10 @@ const TopProductsCard = () => {
               })}
             </p>
           </div>
-          <div className="col-span-3 sm:col-span-6 md:col-span-10">
+          <div className={totalGridClasses}>
             <p className="font-medium">Total Category Profit:</p>
           </div>
-          <div className="sm:justify-self-end 2xl:justify-self-center">
+          <div className={totalAmountClasses}>
             <p className="font-bold">
               {totalProfit.toLocaleString(locale, {
                 style: "currency",
