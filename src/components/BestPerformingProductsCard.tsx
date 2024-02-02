@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const BestPerformingProductsCard = () => {
   const [select, setSelect] = useState(1);
   const [toggle, setToggle] = useState(false);
-  const [sortedProducts, setSortedProducts] = useState([])
+  const [sortedProducts, setSortedProducts] = useState([]);
 
   const initialValue = 0;
 
@@ -78,12 +78,12 @@ const BestPerformingProductsCard = () => {
     },
   ];
 
-  let sortedByRevenueDescending = products.sort((a, b) => {
-    return b.salesRevenue - a.salesRevenue;
-  })
-
-  console.log("sortedByRevenueDescending: ", sortedByRevenueDescending);
-  
+  // Sort products by descending revenue
+  let sortedByRevenueDescending = toggle
+    ? sortedProducts
+    : products.sort((a, b) => {
+        return b.salesRevenue - a.salesRevenue;
+      });
 
   const handleChange = (e: any) => {
     setSelect(e.target.value);
@@ -92,9 +92,6 @@ const BestPerformingProductsCard = () => {
   const filteredSalesRevenueCategoryById = sortedByRevenueDescending.filter(
     (product) => Number(select) === product.categoryId && product.salesRevenue
   );
-
-  console.log("select-1", select);
-  console.log("SalesRevenue", filteredSalesRevenueCategoryById);
 
   // useEffect(() => {
   //   console.log("select-2", select);
@@ -127,64 +124,51 @@ const BestPerformingProductsCard = () => {
 
   const handleToggle = (i: any) => {
     console.log("i: ", i);
-    console.log("toggle click-1: ", toggle);
-    console.log("products before function ternary: ", products);
-    // handleAscendingDescendingToggle(products, true)
 
     if (i === 2) {
-      toggle ? handleAscendingDescendingToggle(products, false) : handleAscendingDescendingToggle(products, true);
+      toggle ? setToggle(false) : handleAscendingRevenueToggle(products, true);
+      console.log("toggle click-2: ", toggle);
     } else if (i === 3) {
-      toggle ? handleAscendingToggle() : handleDescendingToggle();
+      toggle ? handleAscendingToggle(products, false) : handleDescendingToggle(products, true);
     }
-
-    console.log("toggle click-1: ", toggle);
-
-    // i === 2
-    //   ? toggle
-    //     ? handleAscendingToggle()
-    //     : handleDescendingToggle()
-    //   : i === 3
-    //   ? handleAscendingToggle()
-    //   : null;
   };
 
   let titles = Object.keys(sortedByRevenueDescending[select]);
   let rows = Object.values(filteredSalesRevenueCategoryById);
   titles.pop();
 
-  const handleAscendingToggle = () => {
-    setToggle(false);
+  const handleAscendingToggle = (arrOfProducts: any, bool: Boolean) => {
+    setToggle(bool);
 
-    let sorting = products.sort((a, b) => {
+    let sorted = products.sort((a, b) => {
+      return a.cost - b.cost;
+    });
+
+    setSortedProducts(sorted);
+  };
+
+  const handleDescendingToggle = (arrOfProducts: any, bool: Boolean) => {
+    setToggle(bool);
+
+    let sorted = products.sort((a, b) => {
+      return b.cost - a.cost;
+    });
+
+    setSortedProducts(sorted);
+  };
+
+  const handleAscendingRevenueToggle = (arrOfProducts: any, bool: Boolean) => {
+    setToggle(bool);
+
+    let sorted = arrOfProducts.sort((a: any, b: any) => {
       return a.salesRevenue - b.salesRevenue;
     });
 
-    return sorting;
+    setSortedProducts(sorted);
   };
-
-  const handleDescendingToggle = () => {
-    setToggle(true);
-
-    let sortedDescending = products.sort((a, b) => {
-      return b.salesRevenue - a.salesRevenue;
-    });
-    
-    return sortedDescending;
-  };
-
-  const handleAscendingDescendingToggle = (arrOfProducts:any, bool:Boolean) => {
-    setToggle(bool);
-    console.log("bool: ", bool);
-    
-
-    let sorted = arrOfProducts.sort((a:any, b:any) => {
-      return b.salesRevenue - a.salesRevenue;
-    });
-    return sorted;
-  }
 
   return (
-    <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+    <div className="w-1/2 rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
       <label>
         Categories:
         <select
