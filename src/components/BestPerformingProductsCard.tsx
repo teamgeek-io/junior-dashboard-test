@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const BestPerformingProductsCard = () => {
-  const [select, setSelect] = useState(0);
+  const [select, setSelect] = useState(1);
+  const [toggle, setToggle] = useState(false);
+  const [sortedProducts, setSortedProducts] = useState([])
+
+  const initialValue = 0;
+
   const products = [
     {
       id: 1,
@@ -73,18 +78,110 @@ const BestPerformingProductsCard = () => {
     },
   ];
 
+  let sortedByRevenueDescending = products.sort((a, b) => {
+    return b.salesRevenue - a.salesRevenue;
+  })
+
+  console.log("sortedByRevenueDescending: ", sortedByRevenueDescending);
+  
+
   const handleChange = (e: any) => {
     setSelect(e.target.value);
   };
 
-  let titles = Object.keys(products[select]);
-  let rows = Object.values(products[select]);
-  let popTitles = titles.pop();
-  let popRows = rows.pop();
-  console.log("rows: ", rows);
-  console.log("titles: ", titles);
+  const filteredSalesRevenueCategoryById = sortedByRevenueDescending.filter(
+    (product) => Number(select) === product.categoryId && product.salesRevenue
+  );
 
-  const initialValue = 0;
+  console.log("select-1", select);
+  console.log("SalesRevenue", filteredSalesRevenueCategoryById);
+
+  // useEffect(() => {
+  //   console.log("select-2", select);
+
+  //   console.log(
+  //     "filteredSalesRevenueCategoryById",
+  //     filteredSalesRevenueCategoryById
+  //   );
+  //   const allSalesRevenue = filteredSalesRevenueCategoryById.map(
+  //     (product) => product.salesRevenue
+  //   );
+  //   console.log("allSalesRevenue", allSalesRevenue);
+  //   const totalRevenue = allSalesRevenue.reduce(
+  //     (accumulator, currentValue) => accumulator + currentValue,
+  //     initialValue
+  //   );
+
+  //   console.log("totalRevenue", totalRevenue);
+
+  //   // return () => {
+  //   //   second
+  //   // }
+  // }, [select]);
+
+  // let filteredProducts = products.filter(
+  //   (product) => select !== product.categoryId
+  // );
+
+  useEffect(() => {}, [select]);
+
+  const handleToggle = (i: any) => {
+    console.log("i: ", i);
+    console.log("toggle click-1: ", toggle);
+    console.log("products before function ternary: ", products);
+    // handleAscendingDescendingToggle(products, true)
+
+    if (i === 2) {
+      toggle ? handleAscendingDescendingToggle(products, false) : handleAscendingDescendingToggle(products, true);
+    } else if (i === 3) {
+      toggle ? handleAscendingToggle() : handleDescendingToggle();
+    }
+
+    console.log("toggle click-1: ", toggle);
+
+    // i === 2
+    //   ? toggle
+    //     ? handleAscendingToggle()
+    //     : handleDescendingToggle()
+    //   : i === 3
+    //   ? handleAscendingToggle()
+    //   : null;
+  };
+
+  let titles = Object.keys(sortedByRevenueDescending[select]);
+  let rows = Object.values(filteredSalesRevenueCategoryById);
+  titles.pop();
+
+  const handleAscendingToggle = () => {
+    setToggle(false);
+
+    let sorting = products.sort((a, b) => {
+      return a.salesRevenue - b.salesRevenue;
+    });
+
+    return sorting;
+  };
+
+  const handleDescendingToggle = () => {
+    setToggle(true);
+
+    let sortedDescending = products.sort((a, b) => {
+      return b.salesRevenue - a.salesRevenue;
+    });
+    
+    return sortedDescending;
+  };
+
+  const handleAscendingDescendingToggle = (arrOfProducts:any, bool:Boolean) => {
+    setToggle(bool);
+    console.log("bool: ", bool);
+    
+
+    let sorted = arrOfProducts.sort((a:any, b:any) => {
+      return b.salesRevenue - a.salesRevenue;
+    });
+    return sorted;
+  }
 
   return (
     <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -117,6 +214,7 @@ const BestPerformingProductsCard = () => {
                   key={i}
                   scope="col"
                   className="px-6 py-3 w-[25%]"
+                  onClick={() => handleToggle(i)}
                 >
                   {title === "salesRevenue" ? "Revenue" : title}
                 </th>
@@ -124,13 +222,26 @@ const BestPerformingProductsCard = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className=" dark:bg-gray-900 border-b dark:border-gray-700">
-              {rows.map((data, i) => (
-                <td key={i} scope="row" className="px-6 py-4 dark:text-white">
-                  {i === 2 || i === 3 ? `$ ${data}` : data}
-                </td>
-              ))}
-            </tr>
+            {rows.map((rowValues, i) => {
+              let cells = Object.values(rowValues);
+              cells.pop();
+
+              return (
+                <tr key={i} className=" dark:bg-gray-900 dark:border-gray-700">
+                  {cells.map((cell, i) => {
+                    return (
+                      <td
+                        key={i}
+                        scope="row"
+                        className="px-6 py-4 dark:text-white"
+                      >
+                        {i === 2 || i === 3 ? `$ ${cell}` : cell}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
         <div></div>
