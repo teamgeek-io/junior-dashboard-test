@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import Loader from "../../common/Loader/index.tsx";
+import ApiAlertsBanner from "../../components/ApiErrorBanner.tsx";
+import ApiLoader from "../../components/ApiLoader.tsx";
 import CardFour from "../../components/CardFour.tsx";
 import CardOne from "../../components/CardOne.tsx";
 import CardThree from "../../components/CardThree.tsx";
@@ -28,32 +29,39 @@ const ECommerce = () => {
     queryFn: getStats,
   });
 
-  if (isLoading) {
-    return <Loader />;
-  }
-  if (status === "error") {
-    return <span>Error: {error.message}</span>;
-  }
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
+  // if (status !== "error") {
+  //   return <ApiAlertsBanner message={"hi"} />;
+  // }
+  console.log(status);
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardOne
-          totalViews={data.total_views.amount}
-          changePercentage={data.total_views.change_percent}
-        />
-        <CardTwo
-          totalProfit={data.total_profit.amount}
-          changePercentage={data.total_profit.change_percent}
-        />
-        <CardThree
-          totalProductSales={data.total_product_sales.amount}
-          changePercentage={data.total_product_sales.change_percent}
-        />
-        <CardFour
-          totalUsers={data.total_users.amount}
-          changePercentage={data.total_users.change_percent}
-        />
-      </div>
+      {status === "error" ? (
+        <ApiAlertsBanner message={error.message} />
+      ) : isLoading ? (
+        <ApiLoader />
+      ) : (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+          <CardOne
+            totalViews={data.total_views.amount}
+            changePercentage={data.total_views.change_percent}
+          />
+          <CardTwo
+            totalProfit={data.total_profit.amount}
+            changePercentage={data.total_profit.change_percent}
+          />
+          <CardThree
+            totalProductSales={data.total_product_sales.amount}
+            changePercentage={data.total_product_sales.change_percent}
+          />
+          <CardFour
+            totalUsers={data.total_users.amount}
+            changePercentage={data.total_users.change_percent}
+          />
+        </div>
+      )}
 
       <div className="mt-4 col-span-12 xl:col-span-8 md:mt-6 md:gap-6 2xl:mt-7.5">
         <TopProductsCard />
