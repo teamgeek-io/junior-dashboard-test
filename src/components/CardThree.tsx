@@ -1,5 +1,5 @@
 type TotalProductProps = {
-  totalProductSales: BigInteger;
+  totalProductSales: number;
   changePercentage: number;
 };
 

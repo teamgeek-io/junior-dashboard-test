@@ -1,5 +1,5 @@
 type TotalUsersProps = {
-  totalUsers: BigInteger;
+  totalUsers: number;
   changePercentage: number;
 };
 

@@ -1,9 +1,15 @@
 type TotalProfitProps = {
-  totalProfit: BigInteger;
+  totalProfit: number;
   changePercentage: number;
 };
 
 const CardTwo = ({ totalProfit, changePercentage }: TotalProfitProps) => {
+  const profit = new Intl.NumberFormat("en-US", {
+    notation: "compact",
+    compactDisplay: "short",
+    style: "currency",
+    currency: "USD",
+  }).format(totalProfit);
   const percentageColor = changePercentage > 0 ? "text-meta-3" : "text-meta-5";
   return (
     <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -34,7 +40,7 @@ const CardTwo = ({ totalProfit, changePercentage }: TotalProfitProps) => {
       <div className="mt-4 flex items-end justify-between">
         <div>
           <h4 className="text-title-md font-bold text-black dark:text-white">
-            ${totalProfit}
+            {profit}
           </h4>
           <span className="text-sm font-medium">Total Profit</span>
         </div>

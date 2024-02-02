@@ -1,10 +1,17 @@
 type TotalViewProps = {
-  totalViews: BigInteger;
+  totalViews: number;
   changePercentage: number;
 };
 
 const CardOne = ({ totalViews, changePercentage }: TotalViewProps) => {
+  const views = new Intl.NumberFormat("en-US", {
+    notation: "compact",
+    compactDisplay: "short",
+    style: "currency",
+    currency: "USD",
+  }).format(totalViews);
   const percentageColor = changePercentage > 0 ? "text-meta-3" : "text-meta-5";
+
   return (
     <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
@@ -30,7 +37,7 @@ const CardOne = ({ totalViews, changePercentage }: TotalViewProps) => {
       <div className="mt-4 flex items-end justify-between">
         <div>
           <h4 className="text-title-md font-bold text-black dark:text-white">
-            ${totalViews}
+            {views}
           </h4>
           <span className="text-sm font-medium">Total views</span>
         </div>
