@@ -3,6 +3,14 @@ export type Category = {
   name: string;
 };
 
+export type ProductListItem = {
+  id: number;
+  name: string;
+  salesRevenue: number;
+  cost: number;
+  categoryId: number;
+};
+
 export const categories: Category[] = [
   {
     id: 1,
@@ -22,15 +30,7 @@ export const categories: Category[] = [
   },
 ];
 
-export type product = {
-  id: number;
-  name: string;
-  salesRevenue: number;
-  const: number;
-  catergoryId: number;
-};
-
-export const productsList = [
+export const productsList: ProductListItem[] = [
   {
     id: 1,
     name: "Nike air force ones",
