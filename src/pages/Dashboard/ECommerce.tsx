@@ -14,49 +14,55 @@ import { useQuery } from "react-query";
 import { StatsContext } from "../../context/dashboard-stats.tsx";
 
 async function handleFetchStats() {
-  // @ts-ignore
-  const data = await fetch(import.meta.env.VITE_STATS_ENDPOINT);
-  return await data.json();
+	// @ts-ignore
+	const data = await fetch(import.meta.env.VITE_STATS_ENDPOINT);
+	return await data.json();
 }
 
 const ECommerce = () => {
-  const { isLoading, error, data } = useQuery("stats", handleFetchStats);
+	const { isLoading, error, data } = useQuery("stats", handleFetchStats, {
+		refetchInterval: 5000,
+	});
 
-  if (isLoading) {
-    return <Loader />;
-  }
+	if (isLoading) {
+		return <Loader />;
+	}
 
-  return (
-    <>
-      {error ? (
-        <div>Unable to fetch Stats From API</div>
-      ) : (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-          <StatsContext.Provider value={data}>
-            <CardOne />
-            <CardTwo />
-            <CardThree />
-            <CardFour />
-          </StatsContext.Provider>
-        </div>
-      )}
+	if (error) {
+		return (
+			<div className="flex items-center justify-center h-100">
+				<h1 className="font-bold">Unable To Fetch Data, retrying...</h1>
+			</div>
+		);
+	}
 
-      <div className="grid grid-cols-1 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-        <CardFive />
-      </div>
+	return (
+		<>
+			<div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+				<StatsContext.Provider value={data}>
+					<CardOne />
+					<CardTwo />
+					<CardThree />
+					<CardFour />
+				</StatsContext.Provider>
+			</div>
 
-      <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-        <ChartOne />
-        <ChartTwo />
-        <ChartThree />
-        <MapOne />
-        <div className="col-span-12 xl:col-span-8">
-          <TableOne />
-        </div>
-        <ChatCard />
-      </div>
-    </>
-  );
+			<div className="grid grid-cols-1 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
+				<CardFive />
+			</div>
+
+			<div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
+				<ChartOne />
+				<ChartTwo />
+				<ChartThree />
+				<MapOne />
+				<div className="col-span-12 xl:col-span-8">
+					<TableOne />
+				</div>
+				<ChatCard />
+			</div>
+		</>
+	);
 };
 
 export default ECommerce;
