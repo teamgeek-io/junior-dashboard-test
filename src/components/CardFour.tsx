@@ -1,4 +1,4 @@
-import { DataFetchingComponent } from '../dataFetching';
+import { DataFetchingComponent } from '../pages/api/dataFetching';
 
 const CardFour = () => {
   const data = DataFetchingComponent();
