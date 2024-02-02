@@ -93,11 +93,17 @@ const ChartTwo: React.FC = () => {
         </div>
         <div>
           <div className="relative z-20 inline-block">
-            <select className="relative z-20 inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none">
-              <option value="" className="dark:border-strokedark">
+            <select className="relative z-20 inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none ">
+              <option
+                value=""
+                className="dark:border-strokedark dark:bg-boxdark"
+              >
                 This Week
               </option>
-              <option value="" className="dark:border-strokedark">
+              <option
+                value=""
+                className="dark:border-strokedark dark:bg-boxdark"
+              >
                 Last Week
               </option>
             </select>

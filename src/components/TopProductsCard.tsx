@@ -185,7 +185,11 @@ const TopProductsCard = () => {
               onChange={handleChange}
             >
               {options.map((option, index) => (
-                <option key={index} value={option.value}>
+                <option
+                  key={index}
+                  value={option.value}
+                  className="dark:border-strokedark dark:bg-boxdark"
+                >
                   {option.name}
                 </option>
               ))}
