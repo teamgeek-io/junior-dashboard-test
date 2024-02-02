@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import useSWR from 'swr';
 
 interface MetricData {
   amount: number;
@@ -20,40 +21,24 @@ const ErrorIndicator: React.FC<{ error: Error }> = ({ error }) => (
   </div>
 );
 
-export const DataFetchingComponent = () => {
-  const [data, setData] = useState<ApiResponse | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch('https://j5l5hqnix6.execute-api.af-south-1.amazonaws.com/dev/stats'); // API endpoint
-      const result: ApiResponse = await response.json();
-      setData(result);
-    } catch (Error) {
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      fetchData(); // Fetch data every 3 seconds
-    }, 3000);
-
-    return () => {
-      clearInterval(intervalId); // Cleanup the interval when the component unmounts
-      console.log("Cleanup");
-    };
-  }, []);
-
-  if (loading) return <LoadingIndicator />;
-  if (error) return <ErrorIndicator error={error} />;
-  if (!data) return null; // or a default state if necessary
-  
-  console.log("Data from DataFetchingComponent : ", data);
-  return data;
+const fetcher = async (url: string) => {
+  const response = await fetch(url);
+  const result: ApiResponse = await response.json();
+  return result;
 };
 
+export const DataFetchingComponent = () => {
+  const { data, error } = useSWR<ApiResponse>('https://j5l5hqnix6.execute-api.af-south-1.amazonaws.com/dev/stats', fetcher, {
+    refreshInterval: 3000, // Fetch data every 3 seconds
+  });
 
+  useEffect(() => {
+    console.log('Data from DataFetchingComponent: ', data);
+  }, [data]);
+
+  if (!data && !error) return <LoadingIndicator />;
+  if (error) return <ErrorIndicator error={error} />;
+
+  // Render your component using the fetched data
+  return data;
+};
