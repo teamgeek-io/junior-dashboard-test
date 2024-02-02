@@ -104,10 +104,6 @@ const BestPerformingProductsCard = () => {
   //     (product) => product.salesRevenue
   //   );
   //   console.log("allSalesRevenue", allSalesRevenue);
-  //   const totalRevenue = allSalesRevenue.reduce(
-  //     (accumulator, currentValue) => accumulator + currentValue,
-  //     initialValue
-  //   );
 
   //   console.log("totalRevenue", totalRevenue);
 
@@ -116,12 +112,6 @@ const BestPerformingProductsCard = () => {
   //   // }
   // }, [select]);
 
-  // let filteredProducts = products.filter(
-  //   (product) => select !== product.categoryId
-  // );
-
-  useEffect(() => {}, [select]);
-
   const handleToggle = (i: any) => {
     console.log("i: ", i);
 
@@ -129,13 +119,30 @@ const BestPerformingProductsCard = () => {
       toggle ? setToggle(false) : handleAscendingRevenueToggle(products, true);
       console.log("toggle click-2: ", toggle);
     } else if (i === 3) {
-      toggle ? handleAscendingToggle(products, false) : handleDescendingToggle(products, true);
+      toggle
+        ? handleAscendingToggle(products, false)
+        : handleDescendingToggle(products, true);
     }
   };
 
   let titles = Object.keys(sortedByRevenueDescending[select]);
   let rows = Object.values(filteredSalesRevenueCategoryById);
   titles.pop();
+  console.log("rows", rows);
+
+  const totalRevenue = rows.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.salesRevenue,
+    initialValue
+  );
+
+  const totalCost = rows.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.cost,
+    initialValue
+  );
+
+  const totalProfit = totalRevenue - totalCost;
+
+  console.log("totalRevenue", totalRevenue);
 
   const handleAscendingToggle = (arrOfProducts: any, bool: Boolean) => {
     setToggle(bool);
@@ -229,6 +236,15 @@ const BestPerformingProductsCard = () => {
           </tbody>
         </table>
         <div></div>
+      </div>
+
+      <div>
+        <h3>Total Revenue</h3>
+        <p>$ {totalRevenue}</p>
+      </div>
+      <div>
+        <h3>Total Profit</h3>
+        <p>$ {totalProfit}</p>
       </div>
     </div>
   );
