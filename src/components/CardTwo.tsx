@@ -42,7 +42,7 @@ const CardTwo = ({ totalProfit, changePercentage }: TotalProfitProps) => {
         <span
           className={`flex items-center gap-1 text-sm font-medium ${percentageColor}`}
         >
-          {changePercentage}%
+          {Math.round(changePercentage * 100) / 100}%
           {changePercentage > 0 ? (
             <svg
               className="fill-meta-3"
