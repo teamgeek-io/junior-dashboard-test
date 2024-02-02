@@ -34,13 +34,15 @@ const ECommerce = () => {
   if (status === "error") {
     return <span>Error: {error.message}</span>;
   }
-
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
         <CardOne />
         <CardTwo />
-        <CardThree />
+        <CardThree
+          totalProductSales={data.total_product_sales.amount}
+          changePercentage={data.total_product_sales.change_percent}
+        />
         <CardFour
           totalUsers={data.total_users.amount}
           changePercentage={data.total_users.change_percent}
