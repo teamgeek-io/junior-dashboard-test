@@ -38,7 +38,10 @@ const ECommerce = () => {
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardOne />
+        <CardOne
+          totalViews={data.total_views.amount}
+          changePercentage={data.total_views.change_percent}
+        />
         <CardTwo
           totalProfit={data.total_profit.amount}
           changePercentage={data.total_profit.change_percent}
