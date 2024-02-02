@@ -1,6 +1,6 @@
 import { DataFetchingComponent } from '../dataFetching';
 
-const CardOne = () => {
+const CardTwo = () => {
   const data = DataFetchingComponent();
   let dataProfit = data.total_profit;
   try {
@@ -102,6 +102,6 @@ const CardOne = () => {
   
 };
 
-export default CardOne;
+export default CardTwo;
 
 
