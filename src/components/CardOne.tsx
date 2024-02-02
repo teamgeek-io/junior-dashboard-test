@@ -35,8 +35,8 @@ const CardOne = () => {
             dataView && ( //Check if recieved data from API endpoint
               <>
                 {
-                  dataPercent>0 ? <h4 className="text-title-md font-bold text-black dark:text-white"> {dataAmount} </h4> :
-                  <h4 className="text-title-md font-bold text-black dark:text-white">{dataAmount}</h4>
+                  dataPercent>0 ? <h4 className="text-title-md font-bold text-black dark:text-white"> {(dataAmount/1000).toFixed(2)}K </h4> :
+                  <h4 className="text-title-md font-bold text-black dark:text-white"> {(dataAmount/1000).toFixed(2)}K </h4>
                 }
                 <span className="text-sm font-medium">Total views</span>
               </>
@@ -95,7 +95,7 @@ const CardOne = () => {
     );
     console.log("Fetching data...");
   }
-  //console.log("Data from CardOne: ", data.total_views.amount);
+  
   
 };
 
