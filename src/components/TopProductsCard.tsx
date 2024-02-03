@@ -157,8 +157,8 @@ const TopProductsCard = () => {
         <h4 className="text-xl font-semibold text-black dark:text-white mb-4">
           Top Products
         </h4>
-        <div className="flex flex-wrap items-center justify-center md:justify-end gap-6 sm:gap-10 md:gap-4 ">
-          <div className="flex justify-center">
+        <div className="flex flex-wrap items-center md:justify-end gap-2 sm:gap-10 md:gap-4 ">
+          <div className="flex md:justify-center">
             <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
               {categories.map((category, index) => (
                 <button
@@ -169,7 +169,7 @@ const TopProductsCard = () => {
                   }}
                   className={`rounded py-1 px-3 text-xs font-medium ${
                     index === activeButton
-                      ? "dark:bg-boxdark shadow-card"
+                      ? "dark:bg-boxdark bg-white shadow-card"
                       : "text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark "
                   }`}
                 >
@@ -185,7 +185,11 @@ const TopProductsCard = () => {
               onChange={handleChange}
             >
               {options.map((option, index) => (
-                <option key={index} value={option.value}>
+                <option
+                  key={index}
+                  value={option.value}
+                  className="dark:border-strokedark dark:bg-boxdark"
+                >
                   {option.name}
                 </option>
               ))}
