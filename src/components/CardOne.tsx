@@ -93,7 +93,6 @@ const CardOne = () => {
         <p className=" w-full text-center">LOADING...</p>
     </div>
     );
-    console.log("Fetching data...");
   }
   
   
