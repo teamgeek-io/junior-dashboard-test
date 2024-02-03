@@ -53,7 +53,7 @@ const CardFour = () => {
               <>
                 {
                 dataPercent>0 ? <span className="flex items-center gap-1 text-sm font-medium text-meta-3">
-                {dataPercent}
+                {dataPercent}%
                 <svg
                     className="fill-meta-3"
                     width="10"
@@ -69,7 +69,7 @@ const CardFour = () => {
                 </svg> 
                 </span> :
                 <span className="flex items-center gap-1 text-sm font-medium text-meta-1">
-                {dataPercent}
+                {dataPercent}%
                   <svg
                     className="fill-meta-1"
                     width="10"
