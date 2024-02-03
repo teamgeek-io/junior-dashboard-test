@@ -31,7 +31,6 @@ const ECommerce = () => {
     queryKey: ["todos"],
     queryFn: getStats,
   });
-  console.log(status);
   return (
     <>
       {status === "error" ? (
