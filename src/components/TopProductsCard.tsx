@@ -82,8 +82,9 @@ const ProductRow: FunctionComponent<ProductRow> = ({
 
 const TopProductsCard = () => {
   // Styles
-  const totalGridClasses = "col-span-3 sm:col-span-6 md:col-span-10";
-  const totalAmountClasses = "sm:justify-self-end 2xl:justify-self-center";
+  const totalGridTitleClasses = "col-span-3 sm:col-span-6 md:col-span-10";
+  const totalAmountClasses =
+    "sm:justify-self-end md:justify-self-end 2xl:justify-self-center min-w-[5rem] md:min-w-[7rem] md:text-right";
 
   // Language codes for locale can be found here: https://www.w3schools.com/tags/ref_language_codes.asp
   const locale = "en-US";
@@ -245,8 +246,8 @@ const TopProductsCard = () => {
           />
         ))}
       <div className="flex sm:justify-end border-t border-stroke dark:border-strokedark px-2 pt-4 sm:pt-6 pb-8">
-        <div className="grid grid-cols-5 ml-5 sm:ml-0 sm:grid-cols-8 lg:py-5 xl:px-2 2xl:px-12 sm:gap-5 sm:place-items-center md:grid-cols-12">
-          <div className={totalGridClasses}>
+        <div className="grid grid-cols-5 ml-5 sm:ml-0 sm:grid-cols-8 xl:px-2 2xl:px-12 sm:gap-5 sm:place-items-center md:grid-cols-12">
+          <div className={totalGridTitleClasses}>
             <p className="font-medium">Total Category Revenue:</p>
           </div>
           <div className={totalAmountClasses}>
@@ -257,7 +258,7 @@ const TopProductsCard = () => {
               })}
             </p>
           </div>
-          <div className={totalGridClasses}>
+          <div className={totalGridTitleClasses}>
             <p className="font-medium">Total Category Profit:</p>
           </div>
           <div className={totalAmountClasses}>
