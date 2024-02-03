@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import ApiAlertsBanner from "../../components/ApiErrorBanner.tsx";
 import ApiLoader from "../../components/ApiLoader.tsx";
 import CardFour from "../../components/CardFour.tsx";
@@ -14,6 +15,8 @@ import TableOne from "../../components/TableOne.tsx";
 import TopProductsCard from "../../components/TopProductsCard.tsx";
 
 const ECommerce = () => {
+  const [cardLoading, setCardLoading] = useState(false);
+
   const getStats = async () => {
     const response = await fetch(
       "https://j5l5hqnix6.execute-api.af-south-1.amazonaws.com/dev/stats"
@@ -28,13 +31,6 @@ const ECommerce = () => {
     queryKey: ["todos"],
     queryFn: getStats,
   });
-
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
-  // if (status !== "error") {
-  //   return <ApiAlertsBanner message={"hi"} />;
-  // }
   console.log(status);
   return (
     <>
