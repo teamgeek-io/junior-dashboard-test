@@ -36,10 +36,9 @@ const TableDisp: React.FC = () => {
   const [data, setData] = useState<DataItem[]>([]);
 
   useEffect(() => {
-    // Fetch data from the JSON file
     const fetchData = async () => {
       try {
-        const response = await fetch('../src/data.json'); // Update the path accordingly
+        const response = await fetch('../src/data.json');
         const jsonData = await response.json();
         setData(jsonData.products);
       } catch (error) {
@@ -48,8 +47,7 @@ const TableDisp: React.FC = () => {
     };
 
     fetchData();
-    console.log("Data: ",data);
-  }, []); // Empty dependency array ensures useEffect runs only once on component mount
+  }, []);
 
   return (
     <div>
