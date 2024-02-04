@@ -33,12 +33,12 @@ export const DataFetchingComponent = () => {
   });
 
   useEffect(() => {
-    console.log('Data from DataFetchingComponent: ', data);
+
   }, [data]);
 
   if (!data && !error) return <LoadingIndicator />;
   if (error) return <ErrorIndicator error={error} />;
 
-  // Render your component using the fetched data
+  // Render component using the fetched data
   return data;
 };
