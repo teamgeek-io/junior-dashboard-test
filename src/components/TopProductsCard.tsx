@@ -83,7 +83,8 @@ const ProductRow: FunctionComponent<ProductRow> = ({
 const TopProductsCard = () => {
   // Styles
   const totalGridTitleClasses =
-    "col-span-3 sm:col-span-6 md:col-span-10 sm:justify-self-start lg:translate-x-45 2xl:translate-x-50";
+    // "col-span-3 sm:col-span-6 md:col-span-10 sm:justify-self-start lg:translate-x-45 2xl:translate-x-70";
+    "col-span-3 sm:col-span-6 md:col-span-10 sm:justify-self-start lg:justify-self-end lg:-translate-x-25 2xl:-translate-x-35";
   const totalAmountClasses =
     "sm:justify-self-end md:justify-self-end 2xl:justify-self-center min-w-[5rem] md:min-w-[7rem] md:text-right";
 
@@ -247,7 +248,7 @@ const TopProductsCard = () => {
           />
         ))}
       <div className="flex sm:justify-end border-t border-stroke dark:border-strokedark px-2 pt-4 sm:pt-6 pb-8">
-        <div className="grid grid-cols-5 ml-5 sm:grid-cols-8 xl:px-2 2xl:px-12 sm:gap-5 sm:place-items-center md:grid-cols-12 sm:ml-20 md:ml-10">
+        <div className="grid grid-cols-5 ml-5 sm:grid-cols-8 xl:px-2 2xl:px-12 2xl:mr-3 sm:gap-5 sm:place-items-center md:grid-cols-12 sm:ml-20 md:ml-10">
           <div className={totalGridTitleClasses}>
             <p className="font-medium">Total Category Revenue:</p>
           </div>
