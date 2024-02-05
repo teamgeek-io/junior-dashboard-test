@@ -112,7 +112,7 @@ export function CardFive() {
 	}, [category, sortDesc, sortType]);
 	return (
 		<div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
-			<div className="flex items-center space-x-2 mb-4">
+			<div className="flex items-center space-x-2 mb-4 justify-center md:justify-start">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
@@ -139,7 +139,7 @@ export function CardFive() {
 						setCategory(Number(event.target.value))
 					}
 				>
-					{categories.map((category) => (
+					{categories.map((category: Categories) => (
 						<option key={category.id} value={category.id}>
 							{category.name}
 						</option>
