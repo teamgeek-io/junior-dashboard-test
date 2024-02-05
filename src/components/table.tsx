@@ -1,8 +1,8 @@
 import React from 'react';
-import { useTable } from 'react-table';
+import { useTable, useSortBy, Column } from 'react-table';
 
 interface TableProps {
-  columns: any[];
+  columns: Column[];
   data: any[];
 }
 
@@ -13,15 +13,20 @@ const TableComponent: React.FC<TableProps> = ({ columns, data }) => {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({ columns, data });
+  } = useTable({ columns, data }, useSortBy);
 
   return (
-    <table className=' w-full border-collapse rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark' {...getTableProps()}>
-      <thead className=' text-left order-collapse text-black border border-stroke bg-gray-2 dark:bg-meta-4 dark:text-stroke'>
+    <table {...getTableProps()} className=' w-full border-collapse rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark'>
+      <thead>
         {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
+          <tr className=' text-left order-collapse text-black border border-stroke bg-gray-2 dark:bg-meta-4 dark:text-stroke' {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                {column.render('Header')}
+                <span>
+                  {column.isSorted ? (column.isSortedDesc ? ' ▼' : ' ▲') : ''}
+                </span>
+              </th>
             ))}
           </tr>
         ))}
