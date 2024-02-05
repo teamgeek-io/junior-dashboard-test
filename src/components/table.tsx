@@ -19,7 +19,7 @@ const TableComponent: React.FC<TableProps> = ({ columns, data }) => {
     <table {...getTableProps()} className=' w-full border-collapse rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark'>
       <thead>
         {headerGroups.map(headerGroup => (
-          <tr className=' text-left order-collapse text-black border border-stroke bg-gray-2 dark:bg-meta-4 dark:text-stroke' {...headerGroup.getHeaderGroupProps()}>
+          <tr className=' text-left order-collapse text-black border border-stroke bg-gray-2 dark:border-meta-4 dark:bg-meta-4 dark:text-stroke' {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
               <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                 {column.render('Header')}
