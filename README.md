@@ -18,6 +18,7 @@ Default build output directory: /dist
 This command will generate a dist as build folder in the root of your template that you can upload to your server.
 
 ## Tons of React Tailwind Components for Dashboard
+
 React and Tailwind are two popular technologies that have taken the web development world by storm. React is a JavaScript library for building user interfaces, while Tailwind is a utility-first CSS framework that makes it easy to style web applications. TailAdmin React Offers 200+ Essential React + Tailwind CSS UI Components that you copy-paste and use with your dashboard projects. That includes - charts, graphs, navbars, tabs, buttons, cards, tables, profile, tabs, forms, modals, app pages, calender, web apps example templates and more... for React and Styled using Tailwind CSS
 
 ## Getting started
@@ -33,74 +34,82 @@ The client has requested a new card added to their sales dashboard. They would l
 Given the following dataset from the API:
 
 Products
+
 ```json
-[{
-  "id": 1,
-  "name": "Nike air force ones",
-  "salesRevenue": 5000,
-  "cost": 100,
-  "categoryId": 1
-},
-{
-  "id": 2,
-  "name": "I love shirts print",
-  "salesRevenue": 18982,
-  "cost": 100,
-  "categoryId": 2
-},
-{
-  "id": 3,
-  "name": "Adidas shoes",
-  "salesRevenue": 123,
-  "cost": 100,
-  "categoryId": 1
-},
-{
-  "id": 4,
-  "name": "Batman funko-pop",
-  "salesRevenue": 199,
-  "cost": 100,
-  "categoryId": 3
-},
-{
-  "id": 5,
-  "name": "Mona Lisa",
-  "salesRevenue": 1428,
-  "cost": 100,
-  "categoryId": 4
-},
-{
-  "id": 6,
-  "name": "Plain white T",
-  "salesRevenue": 82,
-  "cost": 100,
-  "categoryId": 2
-},
-{
-  "id": 7,
-  "name": "Plain green T",
-  "salesRevenue": 901,
-  "cost": 100,
-  "categoryId": 2
-},
+[
+  {
+    "id": 1,
+    "name": "Nike air force ones",
+    "salesRevenue": 5000,
+    "cost": 100,
+    "categoryId": 1
+  },
+  {
+    "id": 2,
+    "name": "I love shirts print",
+    "salesRevenue": 18982,
+    "cost": 100,
+    "categoryId": 2
+  },
+  {
+    "id": 3,
+    "name": "Adidas shoes",
+    "salesRevenue": 123,
+    "cost": 100,
+    "categoryId": 1
+  },
+  {
+    "id": 4,
+    "name": "Batman funko-pop",
+    "salesRevenue": 199,
+    "cost": 100,
+    "categoryId": 3
+  },
+  {
+    "id": 5,
+    "name": "Mona Lisa",
+    "salesRevenue": 1428,
+    "cost": 100,
+    "categoryId": 4
+  },
+  {
+    "id": 6,
+    "name": "Plain white T",
+    "salesRevenue": 82,
+    "cost": 100,
+    "categoryId": 2
+  },
+  {
+    "id": 7,
+    "name": "Plain green T",
+    "salesRevenue": 901,
+    "cost": 100,
+    "categoryId": 2
+  }
 ]
 ```
 
 Categories
+
 ```json
-[{
-  "id": 1,
-  "name": "Sneakers"
-}, {
-  "id": 2,
-  "name": "T-shirts"
-}, {
-  "id": 3,
-  "name": "Figurines"
-}, {
-  "id": 4,
-  "name": "Art"
-}]
+[
+  {
+    "id": 1,
+    "name": "Sneakers"
+  },
+  {
+    "id": 2,
+    "name": "T-shirts"
+  },
+  {
+    "id": 3,
+    "name": "Figurines"
+  },
+  {
+    "id": 4,
+    "name": "Art"
+  }
+]
 ```
 
 Create a card on the dashboard underneath the 4 statistics cards with the following functionality:
@@ -133,7 +142,6 @@ Your task is to implement the API call to populate the cards with data from the 
 - It works on mobile and desktop
 - The dark mode toggle works as expected
 - Code quality best practices
-
 
 # Plagiarism declaration
 
