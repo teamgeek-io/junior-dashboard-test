@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { HiOutlineSortAscending } from "react-icons/hi";
+import { HiOutlineSortDescending } from "react-icons/hi";
 
 const BestPerformingProductsCard = () => {
   const [select, setSelect] = useState(1);
   const [toggle, setToggle] = useState(false);
+  const [toggleIconRevenue, setToggleIconRevenue] = useState(false);
   const [sortedProducts, setSortedProducts] = useState([]);
 
   const initialValue = 0;
@@ -79,7 +82,7 @@ const BestPerformingProductsCard = () => {
   ];
 
   // Sort products by descending revenue
-  let sortedByRevenueDescending = toggle
+  let sortedByRevenueDescending = toggleIconRevenue
     ? sortedProducts
     : products.sort((a, b) => {
         return b.salesRevenue - a.salesRevenue;
@@ -93,31 +96,12 @@ const BestPerformingProductsCard = () => {
     (product) => Number(select) === product.categoryId && product.salesRevenue
   );
 
-  // useEffect(() => {
-  //   console.log("select-2", select);
-
-  //   console.log(
-  //     "filteredSalesRevenueCategoryById",
-  //     filteredSalesRevenueCategoryById
-  //   );
-  //   const allSalesRevenue = filteredSalesRevenueCategoryById.map(
-  //     (product) => product.salesRevenue
-  //   );
-  //   console.log("allSalesRevenue", allSalesRevenue);
-
-  //   console.log("totalRevenue", totalRevenue);
-
-  //   // return () => {
-  //   //   second
-  //   // }
-  // }, [select]);
-
+  // toggle handlers for the onclick event for descending or ascending of values
   const handleToggle = (i: any) => {
-    console.log("i: ", i);
-
     if (i === 2) {
-      toggle ? setToggle(false) : handleAscendingRevenueToggle(products, true);
-      console.log("toggle click-2: ", toggle);
+      toggleIconRevenue
+        ? setToggleIconRevenue(false)
+        : handleAscendingRevenueToggle(products, true);
     } else if (i === 3) {
       toggle
         ? handleAscendingToggle(products, false)
@@ -128,7 +112,6 @@ const BestPerformingProductsCard = () => {
   let titles = Object.keys(sortedByRevenueDescending[select]);
   let rows = Object.values(filteredSalesRevenueCategoryById);
   titles.pop();
-  console.log("rows", rows);
 
   const totalRevenue = rows.reduce(
     (accumulator, currentValue) => accumulator + currentValue.salesRevenue,
@@ -142,30 +125,28 @@ const BestPerformingProductsCard = () => {
 
   const totalProfit = totalRevenue - totalCost;
 
-  console.log("totalRevenue", totalRevenue);
-
-  const handleAscendingToggle = (arrOfProducts: any, bool: Boolean) => {
+  const handleAscendingToggle = (arrOfProducts: any, bool: any) => {
     setToggle(bool);
 
-    let sorted = products.sort((a, b) => {
+    let sorted: any = products.sort((a, b) => {
       return a.cost - b.cost;
     });
 
     setSortedProducts(sorted);
   };
 
-  const handleDescendingToggle = (arrOfProducts: any, bool: Boolean) => {
+  const handleDescendingToggle = (arrOfProducts: any, bool: any) => {
     setToggle(bool);
 
-    let sorted = products.sort((a, b) => {
+    let sorted: any = products.sort((a, b) => {
       return b.cost - a.cost;
     });
 
     setSortedProducts(sorted);
   };
 
-  const handleAscendingRevenueToggle = (arrOfProducts: any, bool: Boolean) => {
-    setToggle(bool);
+  const handleAscendingRevenueToggle = (arrOfProducts: any, bool: any) => {
+    setToggleIconRevenue(bool);
 
     let sorted = arrOfProducts.sort((a: any, b: any) => {
       return a.salesRevenue - b.salesRevenue;
@@ -175,8 +156,8 @@ const BestPerformingProductsCard = () => {
   };
 
   return (
-    <div className="w-1/2 rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
-      <label>
+    <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+      <label className="font-semibold text-white">
         Categories:
         <select
           name="categories"
@@ -196,7 +177,7 @@ const BestPerformingProductsCard = () => {
         </select>
       </label>
 
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg my-4">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 dark:bg-boxdark">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -204,10 +185,30 @@ const BestPerformingProductsCard = () => {
                 <th
                   key={i}
                   scope="col"
-                  className="px-6 py-3 w-[25%]"
+                  className="px-6 py-3 w-1/4 text-sm"
                   onClick={() => handleToggle(i)}
                 >
-                  {title === "salesRevenue" ? "Revenue" : title}
+                  {i === 2 ? (
+                    <div className="flex items-center justify-between">
+                      {title === "salesRevenue" ? "Revenue" : title}
+                      {toggleIconRevenue ? (
+                        <HiOutlineSortAscending />
+                      ) : (
+                        <HiOutlineSortDescending />
+                      )}
+                    </div>
+                  ) : i === 3 ? (
+                    <div className="flex items-center justify-between">
+                      {title === "salesRevenue" ? "Revenue" : title}
+                      {toggle && i ? (
+                        <HiOutlineSortAscending />
+                      ) : (
+                        <HiOutlineSortDescending />
+                      )}
+                    </div>
+                  ) : (
+                    title
+                  )}
                 </th>
               ))}
             </tr>
@@ -237,14 +238,23 @@ const BestPerformingProductsCard = () => {
         </table>
         <div></div>
       </div>
-
-      <div>
-        <h3>Total Revenue</h3>
-        <p>$ {totalRevenue}</p>
-      </div>
-      <div>
-        <h3>Total Profit</h3>
-        <p>$ {totalProfit}</p>
+      <div className="flex justify-between">
+        <div className="mt-4">
+          <h4 className="text-title-md font-bold text-black dark:text-white">
+            ${totalRevenue}
+          </h4>
+          <span className="text-sm text-primary font-semibold">
+            Total Revenue
+          </span>
+        </div>
+        <div className="mt-4">
+          <h4 className="text- font-bold text-black dark:text-white">
+            ${totalProfit}
+          </h4>
+          <span className="text-sm text-secondary font-semibold">
+            Total Profit
+          </span>
+        </div>
       </div>
     </div>
   );
