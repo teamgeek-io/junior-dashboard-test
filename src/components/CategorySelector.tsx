@@ -28,7 +28,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({ categories, onSelec
         ))}
       </select>
       <p>Selected Category: {selectedCategory}</p>
-    </div>git
+    </div>
   );
 };
 
