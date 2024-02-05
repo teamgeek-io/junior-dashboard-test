@@ -1,6 +1,6 @@
-import { ApexOptions } from 'apexcharts';
-import React, { useState } from 'react';
-import ReactApexChart from 'react-apexcharts';
+import { ApexOptions } from "apexcharts";
+import React, { useState } from "react";
+import ReactApexChart from "react-apexcharts";
 
 interface ChartThreeState {
   series: number[];
@@ -8,20 +8,20 @@ interface ChartThreeState {
 
 const options: ApexOptions = {
   chart: {
-    type: 'donut',
+    type: "donut",
   },
-  colors: ['#10B981', '#375E83', '#259AE6', '#FFA70B'],
-  labels: ['Remote', 'Hybrid', 'Onsite', 'Leave'],
+  colors: ["#10B981", "#375E83", "#259AE6", "#FFA70B"],
+  labels: ["Remote", "Hybrid", "Onsite", "Leave"],
   legend: {
     show: true,
-    position: 'bottom',
+    position: "bottom",
   },
 
   plotOptions: {
     pie: {
       donut: {
-        size: '65%',
-        background: 'transparent',
+        size: "65%",
+        background: "transparent",
       },
     },
   },
@@ -68,8 +68,18 @@ const ChartThree: React.FC = () => {
               id=""
               className="relative z-20 inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none"
             >
-              <option value="">Monthly</option>
-              <option value="">Yearly</option>
+              <option
+                value=""
+                className="dark:border-strokedark dark:bg-boxdark"
+              >
+                Monthly
+              </option>
+              <option
+                value=""
+                className="dark:border-strokedark dark:bg-boxdark"
+              >
+                Yearly
+              </option>
             </select>
             <span className="absolute top-1/2 right-3 z-10 -translate-y-1/2">
               <svg
