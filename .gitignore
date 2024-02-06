@@ -1,2 +1,35 @@
+# Node.js
+node_modules/
+
+#Vite
+.mjs
+
+# Build artifacts
+/dist/
+/build/
+
+# Local development environment
+.env
+
+# IDE files
+.idea/
+.vscode/
+
+# System files
 .DS_Store
-node_modules
+
+# Dependency lock files
+package-lock.json
+yarn.lock
+
+# Vite cache directory
+.vite/
+
+# Optional: log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional: Editor directories and files
+.cache/
+.history/
