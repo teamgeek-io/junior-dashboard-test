@@ -11,6 +11,7 @@ import MapOne from '../../components/MapOne.tsx';
 import TableOne from '../../components/TableOne.tsx';
 import jsonData from '../../data.json'
 import TableDisp from '../../components/ProductsTable.tsx';
+import CatTest from '../../components/CategoryTest.tsx';
 
 const ECommerce = () => {
   const products = jsonData.products;
@@ -24,6 +25,7 @@ const ECommerce = () => {
         <CardThree />
         <CardFour />
       </div>
+      <CatTest/>
       <div className="grid grid-cols-1 gap-5 pt-6 md:grid-cols-1 md:gap-6 xl:grid-cols-1 2xl:gap-7.5">
         <TableDisp />
       </div>
