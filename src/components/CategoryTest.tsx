@@ -15,7 +15,7 @@ console.log("Cat: ",categoryID);
 console.log("Cat: ",categoryName);
   return (
     <div>
-      <h1>Category Selector Example</h1>
+      <h1>Category Selector</h1>
       <CategorySelector categories={categoryName} onSelect={handleCategorySelect} />
     </div>
   );
